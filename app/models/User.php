@@ -2,8 +2,9 @@
 
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
+use LaravelBook\Ardent\Ardent;
 
-class User extends Eloquent implements UserInterface, RemindableInterface {
+class User extends Ardent implements UserInterface, RemindableInterface {
 
 	/**
 	 * The database table used by the model.
@@ -48,5 +49,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	{
 		return $this->email;
 	}
+    public function lists() {
+        return $this->hasMany('Lists');
+    }
+    
+public static $rules = array(
+  'email' => 'required|email',
+  'password' => 'required|alpha_num|min:8|confirmed',
+  'password_confirmation' => 'required|alpha_num|min:8',
+);
 
 }
